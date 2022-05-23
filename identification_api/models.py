@@ -18,8 +18,8 @@ class Person(models.Model):
     )
     height: float = models.FloatField()
     occupation: str = models.CharField(max_length=100)
-    father = models.ForeignKey("self", related_name="fathered_children", on_delete=models.PROTECT)
-    mother = models.ForeignKey("self", related_name="mothered_children", on_delete=models.PROTECT)
+    father = models.ForeignKey("self", related_name="fathered_children", on_delete=models.PROTECT, null=True)
+    mother = models.ForeignKey("self", related_name="mothered_children", on_delete=models.PROTECT, null=True)
 
     def age(self) -> int:
         now = timezone.now()
