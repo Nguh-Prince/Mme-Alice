@@ -21,7 +21,7 @@ INSTALLED_APPS = [
     "identification_api",
     "frontend",
     "mysite",
-    whitenoise.runserver_nostatic
+    "whitenoise.runserver_nostatic"
 ]
 
 MIDDLEWARE = [
