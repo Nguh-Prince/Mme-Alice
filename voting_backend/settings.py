@@ -5,9 +5,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-#^-52vn!-!$q+4)g9+a-^!4*u1lh&+wh-%ye+yo2q96cm%m+vp'
 
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["0.0.0.0", "localhost", "127.0.0.1", "ouivote.herokuapp.com"]
 
 
 INSTALLED_APPS = [
@@ -20,7 +20,8 @@ INSTALLED_APPS = [
     "rest_framework",
     "identification_api",
     "frontend",
-    "mysite"
+    "mysite",
+    whitenoise.runserver_nostatic
 ]
 
 MIDDLEWARE = [
@@ -31,6 +32,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'voting_backend.urls'
@@ -77,6 +79,9 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_URL = '/media/'
 
 LANGUAGE_CODE = 'en-us'
 
