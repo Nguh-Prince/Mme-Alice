@@ -1,0 +1,23 @@
+{% load static i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% trans "Poll Runner" %} {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'frontend/css/bootstrap.min.css' %}">
+    <script src="{% static 'frontend/js/jquery.min.js' %}"></script>
+    <script src="{% static 'frontend/js/bootstrap.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'frontend/font-awesome/css/all.css' %}">
+    
+    {% block styles %}
+    {% endblock %}
+</head>
+<body>
+    {% block body %}
+    {% endblock %}
+</body>
+{% block scripts %}
+{% endblock %}
+</html>

@@ -18,7 +18,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "rest_framework",
-    "identification_api"
+    "identification_api",
+    "frontend",
+    "mysite"
 ]
 
 MIDDLEWARE = [
@@ -56,6 +58,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+        "ATOMIC_REQUESTS": True
     }
 }
 

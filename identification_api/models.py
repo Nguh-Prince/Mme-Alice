@@ -23,9 +23,12 @@ class Person(models.Model):
 
     def age(self) -> int:
         now = timezone.now()
-        days = now - self.date_of_birth
+        days = now.date() - self.date_of_birth
 
-        return divmod(days, 365)[0]
+        return divmod(days.days, 365)[0]
+
+    def __str__(self) -> str:
+        return f"{super().__str__()} {self.surname} {self.given_names}"
 
 class Identification(models.Model):
     person: Person = models.ForeignKey(Person, on_delete=models.PROTECT)

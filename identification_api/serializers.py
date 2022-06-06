@@ -15,16 +15,37 @@ class PersonSerializer(serializers.ModelSerializer):
             fields = simple_person_fields
             extra_kwargs = {"age": {"read_only": True}}
 
-    mother = ParentSerializer
-    father = ParentSerializer
+    mother = ParentSerializer(allow_null=True, required=False)
+    father = ParentSerializer(allow_null=True, required=False)
 
     class Meta:
         model = Person
         fields = simple_person_fields + ( "mother", "father" )
+    
+    def create(self, validated_data):
+        mother = validated_data.pop("mother")
+        father = validated_data.pop("father")
+
+        mother_query = Person.objects.filter(**mother)
+        father_query = Person.objects.filter(**father)
+
+        if mother_query.exists():
+            mother = mother_query.first()
+        else:
+            mother = Person.objects.create(**mother)
+
+        if father_query.exists():
+            father = father_query.first()
+        else:
+            father = Person.objects.create(**father)
+
+        person = Person.objects.create(**validated_data, mother=mother, father=father)
+
+        return person
 
 class IdentificationSerializer(serializers.ModelSerializer):
-    person = PersonSerializer()
+    person_detail = PersonSerializer(source="person", read_only=True)
 
     class Meta:
-        model = Person
-        fields = simple_identification_fields + ("person", )
+        model = Identification
+        fields = simple_identification_fields + ("person", "person_detail")

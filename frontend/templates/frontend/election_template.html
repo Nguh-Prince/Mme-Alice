@@ -1,0 +1,215 @@
+{% extends 'frontend/base_template.html' %}
+{% load i18n static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'frontend/css/sidebar.css' %}">
+<link rel="stylesheet" href="{% static 'frontend/css/election_template.css' %}">
+{% endblock %}
+
+{% block body %}
+<link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+<!-- End -->
+
+<div class="sidebar close">
+    <div class="logo-details">
+        <i class='bx bxl-bitcoin'></i>
+        <span class="logo_name">Menu</span>
+    </div>
+    <ul class="nav-links">
+        <li>
+            <a href="#">
+                <i class='bx bx-home'></i>
+                <span class="link_name">Overview</span>
+            </a>
+            <ul class="sub-menu blank">
+                <li><a class="link_name" href="#">Overview</a></li>
+            </ul>
+        </li>
+        <li>
+            <div class="icon-link">
+                <a href="#">
+                    <i class='bx bx-bulb'></i>
+                    <span class="link_name">Results</span>
+                </a>
+            </div>
+        </li>
+        <li>
+            <a href="#">
+                <i class='bx bx-cog'></i>
+                <span class="link_name">Setting</span>
+            </a>
+            <ul class="sub-menu blank">
+                <li><a class="link_name" href="#">Setting</a></li>
+            </ul>
+        </li>
+        <li>
+            <div class="profile-details">
+                <div class="profile-content">
+                    <img src="https://github.com/Sacsam005/dropdown-menu/blob/master/image/profile.png?raw=true"
+                        alt="profileImg">
+                </div>
+                <div class="name-job">
+                    <div class="profile_name">John Doe</div>
+                    <div class="job">Crypto Expert</div>
+                </div>
+                <i class='bx bx-log-out'></i>
+            </div>
+        </li>
+    </ul>
+</div>
+<div class="home-section">
+    <nav class="navbar navbar-expand-lg bg-light" aria-label="breadcrumb">
+        <div class="container-fluid">
+            <div class="navbar-brand">
+                <i class='bx bx-menu'></i>
+                <ol class="breadcrumb">
+                    <li class="breadcrum-item">{% block election_name %}Election name{% endblock %}</li>
+                    {% block breadcrumbs %}
+                    <li class="breadcrumb-item active" aria-current="page">
+                        <a href="">Overview</a>
+                    </li>
+                    {% endblock %}
+                </ol>
+            </div>
+        </div>
+    </nav>
+
+    {% block page_body %}
+    <div class="container py-3">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <div class="">
+                                        <h5 class="card-title">
+                                            <i class="fas fa-calendar px-1"></i>
+                                            {% trans "Start date" %}
+                                        </h5>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="">
+                                        May 23, 2022, 10:00:00 PM
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <div class="">
+                                        <h5 class="card-title">
+                                            <i class="fas fa-calendar px-1"></i>
+                                            {% trans "End date" %}
+                                        </h5>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="">
+                                        Jun 2, 2022, 10:00:00 PM
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="row my-3">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <div class="py-1">
+                                        <h5 class="card-title">
+                                            <i class="fas fa-globe px-1"></i>
+                                            {% trans "Election URLs" %}
+                                        </h5>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="mb-3">
+                                        <label for="elction-url">{% trans "Election URL" %}</label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" name="election-url" id="election-url" class="form-control" value="https://vote.electionrunner.com/election/xwlSs" aria-label="Election URL">
+                                            <span class="input-group-text" id="copy-url">{% trans "Copy" %}</span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4" id="broad-statistics">
+                <div class="w-100">
+                    <div class="card card-widget card-widget-warning">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="col-md-1">
+                                    <i class="fas fa-users text-black" style="--bs-text-opacity: .15"></i>
+                                </div>
+                                <div class="col-md-11">
+                                    <div class="ml-auto d-flex flex-column align-items-end">
+                                        <div class="d-flex flex-column align-items-center">
+                                            <h2 class="ng-star-inserted">0</h2>
+                                            <span>Candidates</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-100 my-2">
+                    <div class="card card-widget card-widget-warning">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="col-md-1">
+                                    <i class="fas fa-users text-black" style="--bs-text-opacity: .15"></i>
+                                </div>
+                                <div class="col-md-11">
+                                    <div class="ml-auto d-flex flex-column align-items-end">
+                                        <div class="d-flex flex-column align-items-center">
+                                            <h2 class="ng-star-inserted">0</h2>
+                                            <span>Candidates</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-100 my-2">
+                    <div class="card card-widget card-widget-warning">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="col-md-1">
+                                    <i class="fas fa-users text-black" style="--bs-text-opacity: .15"></i>
+                                </div>
+                                <div class="col-md-11">
+                                    <div class="ml-auto d-flex flex-column align-items-end">
+                                        <div class="d-flex flex-column align-items-center">
+                                            <h2 class="ng-star-inserted">0</h2>
+                                            <span>Candidates</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'frontend/js/sidebar.js' %}"></script>
+{% endblock %}
