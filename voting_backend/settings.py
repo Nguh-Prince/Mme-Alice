@@ -7,7 +7,7 @@ SECRET_KEY = 'django-insecure-#^-52vn!-!$q+4)g9+a-^!4*u1lh&+wh-%ye+yo2q96cm%m+vp
 
 DEBUG = False
 
-ALLOWED_HOSTS = ["0.0.0.0", "localhost", "127.0.0.1", "ouivote.herokuapp.com"]
+ALLOWED_HOSTS = ["0.0.0.0:8000", "localhost:8000", "127.0.0.1:8000", "ouivote.herokuapp.com"]
 
 
 INSTALLED_APPS = [
