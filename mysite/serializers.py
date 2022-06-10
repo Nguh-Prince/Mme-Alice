@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.utils.translation import gettext as _
 
-from mysite.models import Candidate, Vote, VoteID
+from mysite.models import Candidate, IDCard, Vote, VoteID
 
 class CandidateSerializer(serializers.ModelSerializer):
     image = serializers.CharField(allow_null=True, allow_blank=True)
@@ -50,3 +50,8 @@ class VoteSerializer(serializers.ModelSerializer):
         breakpoint()
 
         return instance
+
+class IDCardSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = IDCard
+        fields = ("id", "number")

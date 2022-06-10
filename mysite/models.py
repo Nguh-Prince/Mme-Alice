@@ -23,9 +23,19 @@ class Candidate(models.Model):
     def __str__(self) -> str:
         return f"{self.name}"
 
+class IDCard(models.Model):
+    number = models.CharField(max_length=30, unique=True)
+
 class VoteID(models.Model):
     vote_code = models.CharField(max_length=255, unique=True, default=generate_vote_code)
+    idcard = models.OneToOneField(IDCard, on_delete=models.CASCADE, null=True)
     idcard_num = models.CharField(max_length=255, unique=True)
+
+    def save(self, *args, **kwargs):
+        if self.idcard:
+            self.idcard_num = self.idcard.number
+            
+        return super().save(*args, **kwargs)
 
 class Vote(models.Model):
     voteid = models.OneToOneField(VoteID, on_delete=models.PROTECT, unique=True)

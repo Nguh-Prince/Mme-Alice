@@ -7,9 +7,9 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 import copy
-from mysite.models import Candidate, Vote, VoteID
+from mysite.models import Candidate, IDCard, Vote, VoteID
 
-from mysite.serializers import CandidateSerializer, VoteIDSerializer, VoteSerializer
+from mysite.serializers import CandidateSerializer, IDCardSerializer, VoteIDSerializer, VoteSerializer
 from . import permissions
 from rest_framework import permissions as perms
 
@@ -104,3 +104,8 @@ class VoteViewSet(viewsets.ModelViewSet):
                     dictionary_item["candidates"][record['candidate']]["total_number_of_votes"] = record["number_of_votes"]
 
         return Response(data=dictionary_to_return)
+
+class IDCardViewSet(viewsets.ModelViewSet):
+    serializer_class = IDCardSerializer
+    permission_classes = []
+    queryset = IDCard.objects.all()
