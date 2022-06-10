@@ -6,7 +6,7 @@ def set_voteids_idcard(apps, schema_editor):
     IDCard = apps.get_model("mysite", "IDCard")
     VoteID = apps.get_model("mysite", "VoteID")
 
-    for voteid in VoteID.objects.filter(idcard__isnull=False):
+    for voteid in VoteID.objects.filter(idcard__isnull=True):
         idcard = None
         queryset = IDCard.objects.filter(number=voteid.idcard_num)
 

@@ -5,6 +5,7 @@ from django.utils.translation import gettext as _
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from rest_framework import status
 
 import copy
 from mysite.models import Candidate, IDCard, Vote, VoteID
@@ -24,6 +25,7 @@ class VoteIDViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.ModelPermission]
     permission_classes = []
     queryset = VoteID.objects.all()
+    lookup_field = "vote_code"
 
 class VoteViewSet(viewsets.ModelViewSet):
     serializer_class = VoteSerializer
@@ -109,3 +111,27 @@ class IDCardViewSet(viewsets.ModelViewSet):
     serializer_class = IDCardSerializer
     permission_classes = []
     queryset = IDCard.objects.all()
+    lookup_field = "number"
+
+    def retrieve(self, request, *args, **kwargs):
+        breakpoint()
+        # create a vote_code with this idcard
+        idcard = self.get_object()
+        
+        queryset = VoteID.objects.filter(idcard=idcard)
+
+        if not queryset.exists():
+            voteid = VoteID.objects.create(idcard=idcard)
+        
+        serializer = self.get_serializer(idcard)
+        data = {
+            "Success": serializer.data
+        }
+
+        return Response(data=data)
+    
+    def update(self, request, *args, **kwargs):
+        return Response(data={"Error": _("Not allowed")}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+    def destroy(self, request, *args, **kwargs):
+        return Response(data={"Error": _("Not allowed")}, status=status.HTTP_405_METHOD_NOT_ALLOWED)

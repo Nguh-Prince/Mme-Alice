@@ -7,14 +7,15 @@ class CandidateSerializer(serializers.ModelSerializer):
     image = serializers.CharField(allow_null=True, allow_blank=True)
     class Meta:
         model = Candidate
-        fields = ("id", "name", "party", "statement", "image", "age")
-        extra_kwargs = {"image": {"required": False, "allow_blank": True}}
+        fields = ("id", "name", "party", "statement", "image", "age", "number_of_votes", "vote_percentage")
+        extra_kwargs = {"image": {"required": False, "allow_blank": True}, "number_of_votes": {"read_only": True}, "vote_percentage": {"read_only": True}}
 
 class VoteIDSerializer(serializers.ModelSerializer):
     class Meta:
         model = VoteID
         fields = ("vote_code", "idcard_num")
         extra_kwargs = {"vote_code": {"allow_null": True, "allow_blank": True, "required": False, "read_only": True}}
+        lookup_field = "vote_code"
 
     def create(self, validated_data):
         return self.Meta.model.objects.create(**validated_data)
@@ -52,6 +53,8 @@ class VoteSerializer(serializers.ModelSerializer):
         return instance
 
 class IDCardSerializer(serializers.ModelSerializer):
+    vote_code = serializers.CharField(source='voteid.vote_code', read_only=True)
     class Meta:
         model = IDCard
-        fields = ("id", "number")
+        fields = ("id", "number", "vote_code")
+        lookup_field = "number"

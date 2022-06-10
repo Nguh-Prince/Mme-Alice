@@ -23,6 +23,29 @@ class Candidate(models.Model):
     def __str__(self) -> str:
         return f"{self.name}"
 
+    def get_candidates(self):
+        return self.__class__.objects.annotate(number_of_votes=Count( Vote.objects.filter(candidate__id=OuterRef("id") ).values("id") )).order_by("-number_of_votes")
+
+    @property
+    def position(self):
+        candidates = list(self.get_candidates())
+
+        try:
+            return candidates.index(self) + 1
+        except ValueError as e:
+            raise e
+
+    @property
+    def number_of_votes(self) -> int:
+        return self.vote_set.count()
+
+    @property
+    def vote_percentage(self) -> float:
+        number_of_votes = self.number_of_votes
+        total_number_of_votes = Vote.objects.all().count()
+
+        return (number_of_votes / total_number_of_votes) * 100
+
 class IDCard(models.Model):
     number = models.CharField(max_length=30, unique=True)
 
